@@ -1,0 +1,32 @@
+<project name="Overviewr GUI" basedir="." default="build">
+	
+    <property name="src" value="src" />
+    <property name="bin" value="bin" />
+    <property name="build" value="build" />
+	
+	<target name="init">
+		<mkdir dir="${build}"/>
+	</target>
+	
+	<target name="clean">
+		<delete dir="${build}"/>
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${bin}" debug="true" source="1.7" target="1.7" />
+		<copydir src="${src}/images" dest="${bin}/images" />
+	</target>
+	
+	<target name="_jar" depends="compile">
+		<jar destfile="${build}/overviewergui.jar">
+			<fileset dir="${bin}" includes="**" />
+			<manifest>
+				<attribute name="Main-Class" value="overviewergui.OverviewerGui"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="build" depends="_jar" />
+	
+	<target name="rebuild" depends="clean,build"/>
+</project>
